@@ -1,5 +1,9 @@
 <Query Kind="Program" />
 
+// References: 
+// http://geekswithblogs.net/shaunxu/archive/2014/05/27/set-context-user-principal-for-customized-authentication-in-signalr.aspx
+// http://blogs.msdn.com/b/webdev/archive/2013/10/11/signalr-and-user-identity-authentication-and-authorization.aspx
+// https://github.com/gustavo-armenta/CookieAuthenticationSample/blob/master/SelfHost/Startup.cs
 void Main()
 {
 	
