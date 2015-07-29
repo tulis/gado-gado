@@ -3,7 +3,7 @@ function AjaxHelper() {
     try {
         httpRequest = new XMLHttpRequest();
     } catch (exception) {
-        consoleLog(exception);
+        console.error(exception);
     }
 
     var onDone,
@@ -31,14 +31,14 @@ function AjaxHelper() {
                 var responseData = httpRequest.responseText;
                 if (httpRequest.readyState === readyState.interactive
                     && httpRequest.status === responseCode.ok) {
-                    var jsonResponseData = JSON.parse(responseData);
 
-                    onDone(jsonResponseData);
-                } else if (readyState.status !== undefined) {
-                    throw (readyState.status);
+                    onDone(responseData);
+                } else if (httpRequest.status !== undefined
+                    && httpRequest.status !== responseCode.ok) {
+                    throw (httpRequest.status);
                 }
             } catch (exception) {
-                consoleLog(exception);
+                console.log(exception);
                 onFail(exception);
             }
         };
@@ -49,7 +49,7 @@ function AjaxHelper() {
             httpRequest.send(jsonData);
             httpRequest.onreadystatechange = readyStateChange.bind(this);
         } catch (exception) {
-            consoleLog(exception);
+            console.log(exception);
             onFail(exception);
         }
         return this;
