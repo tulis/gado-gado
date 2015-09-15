@@ -35,10 +35,21 @@ class Startup
 }
 
 // Define other methods and classes here
-public class MyHub : Hub
+public class ChatHub : Hub
 {
 	public void Send(string name, string message)
 	{
-		Clients.All.addMessage(name, message);
+		message.Dump(name);
+		Clients.All.addMessage(new Message
+		{
+			By = name,
+			Content = message
+		});
 	}
+}
+
+public class Message
+{
+	public string By {get; set;}
+	public string Content {get; set;}
 }
