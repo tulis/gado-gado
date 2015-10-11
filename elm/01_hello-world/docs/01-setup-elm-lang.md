@@ -31,3 +31,8 @@
 12. Open **linter-elm-make** settings and paste the copied path from previous step
 
     <img src="img/06_paste-elm-make-path-for-elm-linter.PNG" alt="elm-make-path-for-elm-linter" width="500" />
+13. Lastly, make sure that Atom is using **Soft** Tab type (personally, I use 4 spaces), otherwise Elm compiler will throw following exception:
+
+    <img src="img/07_syntax-problem-looking-for-whitespace.PNG" alt="syntax-problem-looking-for-whitespace" width="500" />
+
+    <img src="img/08_atom-tab-type.PNG" alt="atom-tab-type" width="500" />
