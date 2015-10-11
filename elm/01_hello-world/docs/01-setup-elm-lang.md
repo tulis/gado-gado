@@ -1,7 +1,8 @@
  **Setup elm environment in Windows**
+
 1. Go to **[Install Elm page](http://elm-lang.org/install)** to download the installer for Windows
 
-    <img src="img/01_elm-download-elm-for-windows.PNG" alt="download elm for windows" width="500"/>
+    <img src="img/01_elm-download-elm-for-windows.PNG" alt="download elm for windows" width="500" />
 2. Next, run and install it in Administrator mode
 3. Make sure that Atom has been installed in your machine, otherwise click **[here](https://atom.io/)** to install it
 4. Open command line (cmd)
