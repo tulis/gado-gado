@@ -1,0 +1,9 @@
+{
+  "name": "03-node-package-manager",
+  "version": "0.0.0",
+  "description": "Learn how to use npm (node package manager)",
+  "main": "app.js",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  }
+}
