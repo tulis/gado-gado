@@ -3,3 +3,6 @@ elm-stuff/
 
 #general
 bin/
+
+#nodejs
+node_modules/
