@@ -1,13 +1,19 @@
-var React = require("react");
+(function(){
+    var React = require("react");
+    var Lazy = require("lazy.js");
+    var ApiUsers = React.createClass({
+        render: function renderApiUsers(){
+            var users = Lazy(this.props)
+                .pick(["value"])
+                .value()["value"];
 
-var ApiUsers = React.createClass({
-    render: function(){
-        return <div>
-            <pre>
-                { JSON.stringify(this.props, null, 2) }
-            </pre>
-        </div>;
-    }
-});
+            return <div>
+                <pre>
+                    { JSON.stringify(users, null, 2) }
+                </pre>
+            </div>;
+        }
+    });
 
-module.exports = ApiUsers;
+    module.exports = ApiUsers;
+})(module);
