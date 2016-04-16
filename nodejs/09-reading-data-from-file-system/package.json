@@ -1,0 +1,16 @@
+{
+  "name": "TheBoard",
+  "version": "0.0.0",
+  "description": "A message board based on sticky notes",
+  "main": "server.js",
+  "author": {
+    "name": "tan"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "express-react-views": "^0.10.0",
+    "lazy.js": "^0.4.2",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8"
+  }
+}
