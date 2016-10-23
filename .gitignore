@@ -6,3 +6,6 @@ bin/
 
 #nodejs
 node_modules/
+
+#flow
+flow-typed
