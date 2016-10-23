@@ -1,0 +1,9 @@
+[ignore]
+.*/__tests__/.*
+.*/test/.*
+.*\.ignore\.js
+[include]
+
+[libs]
+
+[options]
