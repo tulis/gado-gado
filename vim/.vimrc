@@ -15,6 +15,18 @@ else
   colorscheme wombat256i
 endif
 
+if !has("gui_running")
+    set term=xterm
+    set t_Co=256
+    let &t_AB="\e[48;5;%dm"
+    let &t_AF="\e[38;5;%dm"
+    colorscheme wombat256i
+endif
+
+
+" Set encoding
+set encoding=utf-8
+
 
 
 " VIM-PLUGIN
@@ -35,6 +47,7 @@ Plug 'https://github.com/airblade/vim-gitgutter.git'
 Plug 'https://github.com/mattn/emmet-vim.git'
 Plug 'https://github.com/scrooloose/nerdcommenter.git'
 Plug 'https://github.com/jparise/vim-graphql.git'
+Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
