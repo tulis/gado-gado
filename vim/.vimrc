@@ -48,6 +48,7 @@ Plug 'https://github.com/mattn/emmet-vim.git'
 Plug 'https://github.com/scrooloose/nerdcommenter.git'
 Plug 'https://github.com/jparise/vim-graphql.git'
 Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'https://github.com/vim-syntastic/syntastic.git'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
