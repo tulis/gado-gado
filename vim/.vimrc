@@ -27,6 +27,10 @@ endif
 " Set encoding
 set encoding=utf-8
 
+" Set color-column
+highlight ColorColumn ctermbg=gray
+set colorcolumn=81
+
 
 
 " VIM-PLUGIN
