@@ -31,6 +31,8 @@ set encoding=utf-8
 highlight ColorColumn ctermbg=gray
 set colorcolumn=81
 
+" Display highlight search by default
+set hlsearch
 
 
 " VIM-PLUGIN
