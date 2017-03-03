@@ -55,7 +55,7 @@ Plug 'https://github.com/scrooloose/nerdcommenter.git'
 Plug 'https://github.com/jparise/vim-graphql.git'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/vim-syntastic/syntastic.git'
-Plug 'https:/://github.com/fisadev/dragvisuals.vim'
+Plug 'https://github.com/fisadev/dragvisuals.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
