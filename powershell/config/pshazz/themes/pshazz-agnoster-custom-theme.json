@@ -21,7 +21,7 @@
 		[ "Black", "Yellow", " $git_remote_state" ],
 		[ "Black", "Yellow", "$git_rbracket" ],
 		[ "Yellow", "", "$yes_git" ],
-		[ "", "", " `n$" ]
+		[ "", "", " `nλ" ]
 	],
 	"git": {
                 "prompt_dirty": "📝",
