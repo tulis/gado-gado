@@ -1,0 +1,38 @@
+﻿{
+	"comment": "
+	--------------------------
+	This theme requires this Consolas font patched for Powerline:
+	https://github.com/runsisi/consolas-font-for-powerline
+	You'll also have to enable it for console usage:
+	http://www.techrepublic.com/blog/windows-and-office/quick-tip-add-fonts-to-the-command-prompt/
+	--------------------------
+	",
+	"plugins": [ "git", "ssh", "z", "aliases" ],
+	"prompt": [
+		[ "White", "DarkRed", " 🕒$time" ],
+		[ "DarkRed", "Blue", "$rightarrow" ],
+		[ "White", "Blue", " $path" ],
+		[ "Blue", "", "$no_git" ],
+		[ "Blue", "Yellow", "$yes_git" ],
+		[ "Black", "Yellow", " $git_lbracket"],
+                [ "Magenta", "Yellow", "$git_branch "],
+                [ "Black", "Yellow", "$git_dirty" ],
+		[ "Black", "Yellow", " $git_local_state" ],
+		[ "Black", "Yellow", " $git_remote_state" ],
+		[ "Black", "Yellow", "$git_rbracket" ],
+		[ "Yellow", "", "$yes_git" ],
+		[ "", "", " `n$" ]
+	],
+	"git": {
+                "prompt_dirty": "📝",
+		"prompt_lbracket": "[",
+		"prompt_rbracket": "]",
+                "prompt_stash": "💼",
+                "prompt_untracked": "🤷",
+                "prompt_unstaged": "📚",
+                "prompt_staged": "📦",
+                "prompt_remote_push": "🚀",
+                "prompt_remote_pull": "🌠",
+                "prompt_remote_same": "🌫"
+	}
+}
