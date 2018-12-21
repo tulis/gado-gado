@@ -17,8 +17,8 @@ ffmpeg -i output.mp4 -c copy -an output-no-sound.mp4
 ```
 ffplay -i "Instagram 12_24_2017 11_34_54 PM.mp4" -vf "crop=555:in_h"
 ```
-[StackExchange reference](https://video.stackexchange.com/questions/4563/how-can-i-crop-a-video-with-ffmpeg)
-[ffmpeg crop reference](http://ffmpeg.org/ffmpeg-filters.html#crop)
+* [StackExchange reference](https://video.stackexchange.com/questions/4563/how-can-i-crop-a-video-with-ffmpeg)
+* [ffmpeg crop reference](http://ffmpeg.org/ffmpeg-filters.html#crop)
 
 ## Crop Save (Instagram)
 ```
