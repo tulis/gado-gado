@@ -25,3 +25,9 @@ ffplay -i "Instagram 12_24_2017 11_34_54 PM.mp4" -vf "crop=555:in_h"
 
 ```
 [StackExchange reference](https://video.stackexchange.com/questions/4563/how-can-i-crop-a-video-with-ffmpeg)
+
+## Convert *.mkv to *.mp4
+```
+ffmpeg -i LostInTranslation.mkv -codec copy LostInTranslation.mp4
+```
+* [StackExchange reference](https://web.archive.org/web/20181231062438/https://askubuntu.com/questions/396883/how-to-simply-convert-video-files-i-e-mkv-to-mp4)
