@@ -15,6 +15,8 @@ https://tools.ietf.org/html/rfc950
 # Tips and tricks
 * Practical VPC Design – AWS Startup Collection – Medium
 https://medium.com/aws-activate-startup-blog/practical-vpc-design-8412e1a18dcc
+* Replacing a Bastion Host with Amazon EC2 Systems Manager
+https://aws.amazon.com/blogs/mt/replacing-a-bastion-host-with-amazon-ec2-systems-manager/
 
 # Tools
 * CIDR.xyz - An interactive IP address and CIDR range visualizer  
