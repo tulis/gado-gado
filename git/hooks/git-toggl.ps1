@@ -91,7 +91,9 @@ function Stop-Tracking(){
         $payload = @{
             "time_entry" = @{
                 "description" = $currentEntry.data.description
-                "duration" = (New-TimeSpan -Start $currentEntry.data.start.ToUniversalTime() -End $endDateTime).TotalSeconds
+                "duration" = (New-TimeSpan `
+                    -Start $currentEntry.data.start.ToUniversalTime() `
+                    -End $endDateTime).TotalSeconds
                 "stop" = $endDateTime.ToString("o")
                 "start" = $currentEntry.data.start.ToUniversalTime().ToString("o")
                 "pid" = $currentEntry.data.pid
