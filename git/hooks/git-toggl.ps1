@@ -134,7 +134,7 @@ function Get-TogglePayload([int]$projectId, [string]$jiraSummary){
         "time_entry" = @{
         "description" = $jiraSummary
         "duration" = 1000
-        "start" = Get-Date -Format "o"
+        "start" = (Get-Date).ToUniversalTime().ToString("o")
         "pid" = $projectId
         "created_with" = "powershell"
     }
