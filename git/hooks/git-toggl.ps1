@@ -1,4 +1,4 @@
-﻿# Setup task scheduler to run this script
+# Setup task scheduler to run this script
 # https://stackoverflow.com/questions/23953926/how-do-i-execute-a-powershell-script-automatically-using-windows-task-scheduler
 
 function Get-JiraId(){
@@ -77,7 +77,7 @@ function Stop-Tracking(){
         [Parameter(Mandatory=$true, HelpMessage="Toggl Request Headers")]
         [hashtable]$togglRequestHeaders,
 
-        [Parameter(Mandatory=$false, HelpMessage="local time (not UTC)")]
+        [Parameter(Mandatory=$false, HelpMessage="End DateTime in UTC")]
         [DateTime] $endDateTime = (Get-Date).ToUniversalTime()
     )
     end {
