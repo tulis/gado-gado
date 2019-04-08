@@ -1,4 +1,4 @@
-# Setup task scheduler to run this script
+﻿# Setup task scheduler to run this script
 # https://stackoverflow.com/questions/23953926/how-do-i-execute-a-powershell-script-automatically-using-windows-task-scheduler
 
 function Get-JiraId(){
@@ -67,8 +67,40 @@ function Get-TogglRequestHeaders() {
     return $headers
 }
 
-function Start-Tracking([string] $jiraId){
+function Start-Tracking(){
+    [cmdletbinding(ConfirmImpact="Low")]
+    param(
+        [Parameter(Mandatory=$true, HelpMessage="Toggl Request Headers")]
+        [hashtable]$togglRequestHeaders,
 
+        [Parameter(Mandatory=$true, HelpMessage="JIRA Summary")]
+        [string] $jiraSummary,
+
+        [Parameter(Mandatory=$true, HelpMessage="Project ID Toggl")]
+        [string] $projectId
+    )
+    end{
+        Write-Verbose "$($PSBoundParameters | Out-String)"
+
+        $startDateTime = (Get-Date).ToUniversalTime()
+        $payload = @{
+            "time_entry" = @{
+                "description" = $jiraSummary
+                "start" = $startDateTime.ToUniversalTime().ToString("o")
+                "pid" = $projectId
+                "created_with" = "powershell"
+            }
+        }
+
+        $response = Invoke-WebRequest -Method 'Post' `
+            -uri "https://www.toggl.com/api/v8/time_entries" `
+            -ContentType "application/json" `
+            -Body $payload `
+            -Headers $togglRequestHeaders | ConvertFrom-Json
+
+        Write-Host "Start tracking [$response.data.id] [$jiraSummary]"
+        return $response
+    }
 }
 
 function Stop-Tracking(){
@@ -126,37 +158,6 @@ function Start-Day(){
 
 function Stop-Day(){
 
-}
-
-
-
-function Get-TogglePayload([int]$projectId, [string]$jiraSummary){
-
-    $payload = @{
-        "time_entry" = @{
-        "description" = $jiraSummary
-        "duration" = 1000
-        "start" = (Get-Date).ToUniversalTime().ToString("o")
-        "pid" = $projectId
-        "created_with" = "powershell"
-    }
-    }
-    return $payload | ConvertTo-Json -Depth 5
-}
-
-function Add-TogglTimeEntry([Hashtable]$togglRequestHeaders, [string] $togglPayload){
-    Write-Host $togglRequestHeaders
-    Write-Host "Toggl Payload: $togglPayload"
-
-    #Write-Host (Invoke-WebRequest -Method Get -uri "" -Headers $togglRequestHeaders)
-
-    $response = Invoke-WebRequest -Method 'Post' `
-        -uri "https://www.toggl.com/api/v8/time_entries" `
-        -ContentType "application/json" `
-        -Body $togglPayload `
-        -Headers $togglRequestHeaders
-
-    return $response
 }
 
 function Main(){
