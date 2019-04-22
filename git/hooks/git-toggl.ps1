@@ -124,10 +124,10 @@ function Stop-Tracking(){
             "time_entry" = @{
                 "description" = $currentEntry.data.description
                 "duration" = (New-TimeSpan `
-                    -Start $currentEntry.data.start.ToUniversalTime() `
+                    -Start $currentEntry.data.start `
                     -End $endDateTime).TotalSeconds
                 "stop" = $endDateTime.ToString("o")
-                "start" = $currentEntry.data.start.ToUniversalTime().ToString("o")
+                "start" = $currentEntry.data.start.ToString("o")
                 "pid" = $currentEntry.data.pid
                 "duronly" = $true
                 "created_with" = "powershell"
@@ -141,6 +141,7 @@ function Stop-Tracking(){
             -Headers $togglRequestHeaders
 
         Write-Debug "Updating duration for [$entryId]..."
+        $payload | Out-String -Stream | Write-Debug
         $response = Invoke-WebRequest -Method 'Put' `
             -uri "https://www.toggl.com/api/v8/time_entries/$entryId" `
             -ContentType "application/json" `
@@ -157,7 +158,80 @@ function Start-Day(){
 }
 
 function Stop-Day(){
+    [cmdletbinding(ConfirmImpact="Low")]
+    param()
 
+    function Get-TodayTogglEntries(){
+        [cmdletbinding(ConfirmImpact="Low")]
+        param(
+            [Parameter(Mandatory=$true, HelpMessage="Toggl Request Headers")]
+            [hashtable]$togglRequestHeaders,
+
+            [Parameter(Mandatory=$true, HelpMessage="Project ID Toggl")]
+            [string] $projectId
+        )
+        end{
+            $endLocalDateTime = (Get-Date)
+            $todayStartDate = [System.Web.HttpUtility]::UrlEncode((Get-Date -Day $endLocalDateTime.Day `
+                -Month $endLocalDateTime.Month `
+                -Year $endLocalDateTime.Year `
+                -Hour 00 -Minute 00 -Second 00).ToUniversalTime().ToString("o"))
+            $todayEndDate = [System.Web.HttpUtility]::UrlEncode((Get-Date -Day $endLocalDateTime.Day `
+                -Month $endLocalDateTime.Month `
+                -Year $endLocalDateTime.Year `
+                -Hour 23 -Minute 59 -Second 59).ToUniversalTime().ToString("o"))
+
+            $todayEntries = Invoke-WebRequest -Method 'Get' `
+                -uri "https://www.toggl.com/api/v8/time_entries?start_date=$todayStartDate&end_date=$todayEndDate" `
+                -Headers $togglRequestHeaders
+
+            Write-Debug $todayEntries
+            return $todayEntries | ConvertFrom-Json
+        }
+    }
+
+    function Get-RemainingDateTime(){
+        [cmdletbinding(ConfirmImpact="Low")]
+        param(
+            [Parameter(Mandatory=$true, HelpMessage="Toggl Time Entries")]
+            [object[]]$timeEntries
+        )
+        end{
+            $totalSeconds = ($timeEntries `
+                | Where-Object {$_.duration -gt 0} `
+                | Measure-Object -Property duration -Sum).Sum
+
+            # 27360 seconds is equivalent to 7.6 hours
+            $remainingSeconds = 27360 - $totalSeconds
+            $latestEntry = ($timeEntries `
+                | Where-Object {!$_.stop} `
+                | Sort-Object -Descending -Property start `
+                | Select-Object -index 0)
+
+            $remainingDateTime = $latestEntry.start + (New-TimeSpan -Seconds $remainingSeconds)
+            $remaining = @{Seconds = $remainingSeconds; DateTime = $remainingDateTime}
+
+            ($remaining | Out-String -Stream) | Write-Debug
+
+            return $remaining
+        }
+    }
+
+    $togglRequestHeaders = Get-TogglRequestHeaders
+    $projectId = 1099225
+    $todayEntries = Get-TodayTogglEntries -togglRequestHeaders $togglRequestHeaders -projectId $projectId
+    $runningEntry = @($todayEntries | Where-Object { $_.duration -lt 0 }[0])
+
+    if($runningEntry){
+        Write-Host "Stop tracking  "
+        Write-Debug $todayEntries.GetType()
+        $remaining = Get-RemainingDateTime -timeEntries $todayEntries
+        Stop-Tracking -togglRequestHeaders $togglRequestHeaders `
+            -endDateTime $remaining.DateTime
+    }
+    else{
+        Write-Host "No running entry."
+    }
 }
 
 function Main(){
@@ -165,6 +239,7 @@ function Main(){
 $jiraId = Get-JiraId
 $jiraRequestHeaders = Get-JiraRequestHeaders
 $jiraSummary = Get-JiraSummary($jiraId, $jiraRequestHeaders)
+$projectId = 1099225
 
     # $togglRequestHeaders = Get-TogglRequestHeaders
     # $togglPayload = Get-TogglePayload
