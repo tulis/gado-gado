@@ -53,6 +53,10 @@ function Get-JiraSummary([string]$jiraId, [hashtable]$jiraRequestHeaders){
     return $jiraSummary
 }
 
+function Get-TogglProjectId(){
+    return 1099225;
+}
+
 function Get-TogglRequestHeaders() {
     $apiKey = Get-Content “$env:UserProfile\.toggl\api-key”
     $password = "api_token"
@@ -219,7 +223,7 @@ function Stop-Day(){
     }
 
     $togglRequestHeaders = Get-TogglRequestHeaders
-    $projectId = 1099225
+    $projectId = Get-TogglProjectId
     $todayEntries = Get-TodayTogglEntries -togglRequestHeaders $togglRequestHeaders -projectId $projectId
     $runningEntry = @($todayEntries | Where-Object { $_.duration -lt 0 }[0])
 
@@ -240,7 +244,7 @@ function Main(){
 $jiraId = Get-JiraId
 $jiraRequestHeaders = Get-JiraRequestHeaders
 $jiraSummary = Get-JiraSummary($jiraId, $jiraRequestHeaders)
-$projectId = 1099225
+$projectId = Get-TogglProjectId
 
     # $togglRequestHeaders = Get-TogglRequestHeaders
     # $togglPayload = Get-TogglePayload
