@@ -2,6 +2,9 @@
 # https://stackoverflow.com/questions/23953926/how-do-i-execute-a-powershell-script-automatically-using-windows-task-scheduler
 
 function Get-JiraId(){
+    [cmdletbinding(ConfirmImpact="None")]
+    param()
+
     $currentBranchName = (git rev-parse --abbrev-ref HEAD)
     $option = [System.StringSplitOptions]::RemoveEmptyEntries
 
@@ -25,6 +28,9 @@ function Get-JiraId(){
 }
 
 function Get-JiraRequestHeaders(){
+    [cmdletbinding(ConfirmImpact="None")]
+    param()
+
     $apiKey = Get-Content “$env:UserProfile\.jira\api-key”
     $username = Get-Content “$env:UserProfile\.jira\username”
 
@@ -38,7 +44,14 @@ function Get-JiraRequestHeaders(){
     return $headers
 }
 
-function Get-JiraSummary([string]$jiraId, [hashtable]$jiraRequestHeaders){
+function Get-JiraSummary(){
+    [cmdletbinding(ConfirmImpact="None")]
+    param(
+        [Parameter(Mandatory=$true, HelpMessage="JIRA Task/Story Id")]
+        [string]$jiraId,
+        [Parameter(Mandatory=$true, HelpMessage="JIRA Request Headers")]
+        [hashtable]$jiraRequestHeaders
+    )
 
     $response = Invoke-WebRequest -Method 'Get' `
         -uri "https://assetic.atlassian.net/rest/api/3/issue/$($jiraId)" `
@@ -54,10 +67,16 @@ function Get-JiraSummary([string]$jiraId, [hashtable]$jiraRequestHeaders){
 }
 
 function Get-TogglProjectId(){
+    [cmdletbinding(ConfirmImpact="None")]
+    param()
+
     return 11269147;
 }
 
 function Get-TogglRequestHeaders() {
+    [cmdletbinding(ConfirmImpact="None")]
+    param()
+
     $apiKey = Get-Content “$env:UserProfile\.toggl\api-key”
     $password = "api_token"
 
