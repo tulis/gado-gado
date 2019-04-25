@@ -246,11 +246,11 @@ function Main(){
     [cmdletbinding(ConfirmImpact="None")]
     param()
 
-$jiraId = Get-JiraId
-$jiraRequestHeaders = Get-JiraRequestHeaders
-$jiraSummary = Get-JiraSummary($jiraId, $jiraRequestHeaders)
+    $jiraId = Get-JiraId
+    $jiraRequestHeaders = Get-JiraRequestHeaders
+    $jiraSummary = Get-JiraSummary($jiraId, $jiraRequestHeaders)
 
-$projectId = Get-TogglProjectId
+    $projectId = Get-TogglProjectId
 
     $togglRequestHeaders = Get-TogglRequestHeaders
 
