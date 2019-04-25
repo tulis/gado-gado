@@ -1,6 +1,8 @@
 # Setup task scheduler to run this script
 # https://stackoverflow.com/questions/23953926/how-do-i-execute-a-powershell-script-automatically-using-windows-task-scheduler
 
+$ErrorActionPreference = "Stop"
+
 function Get-JiraId(){
     [cmdletbinding(ConfirmImpact="None")]
     param()
