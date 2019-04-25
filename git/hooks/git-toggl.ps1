@@ -97,7 +97,7 @@ function Start-Tracking(){
         } | ConvertTo-Json
 
         $response = Invoke-WebRequest -Method 'Post' `
-            -uri "https://www.toggl.com/api/v8/time_entries" `
+            -uri "https://www.toggl.com/api/v8/time_entries/start" `
             -ContentType "application/json" `
             -Body $payload `
             -Headers $togglRequestHeaders | ConvertFrom-Json
