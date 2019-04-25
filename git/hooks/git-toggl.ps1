@@ -228,7 +228,7 @@ function Stop-Day(){
     $runningEntry = @($todayEntries | Where-Object { $_.duration -lt 0 }[0])
 
     if($runningEntry){
-        Write-Host "Stop tracking  "
+        Write-Host "End of day; stop tracking..."
         Write-Debug $todayEntries.GetType()
         $remaining = Get-RemainingDateTime -timeEntries $todayEntries
         Stop-Tracking -togglRequestHeaders $togglRequestHeaders `
