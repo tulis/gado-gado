@@ -54,7 +54,7 @@ function Get-JiraSummary([string]$jiraId, [hashtable]$jiraRequestHeaders){
 }
 
 function Get-TogglProjectId(){
-    return 1099225;
+    return 11269147;
 }
 
 function Get-TogglRequestHeaders() {
