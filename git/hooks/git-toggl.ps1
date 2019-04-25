@@ -1,4 +1,4 @@
-﻿# Setup task scheduler to run this script
+# Setup task scheduler to run this script
 # https://stackoverflow.com/questions/23953926/how-do-i-execute-a-powershell-script-automatically-using-windows-task-scheduler
 
 function Get-JiraId(){
@@ -68,7 +68,7 @@ function Get-TogglRequestHeaders() {
 }
 
 function Start-Tracking(){
-    [cmdletbinding(ConfirmImpact="Low")]
+    [cmdletbinding(ConfirmImpact="None")]
     param(
         [Parameter(Mandatory=$true, HelpMessage="Toggl Request Headers")]
         [hashtable]$togglRequestHeaders,
@@ -104,7 +104,7 @@ function Start-Tracking(){
 }
 
 function Stop-Tracking(){
-    [cmdletbinding(ConfirmImpact="Low")]
+    [cmdletbinding(ConfirmImpact="None")]
     param(
         [Parameter(Mandatory=$true, HelpMessage="Toggl Request Headers")]
         [hashtable]$togglRequestHeaders,
@@ -154,15 +154,16 @@ function Stop-Tracking(){
 }
 
 function Start-Day(){
-
+    [cmdletbinding(ConfirmImpact="None")]
+    param()
 }
 
 function Stop-Day(){
-    [cmdletbinding(ConfirmImpact="Low")]
+    [cmdletbinding(ConfirmImpact="None")]
     param()
 
     function Get-TodayTogglEntries(){
-        [cmdletbinding(ConfirmImpact="Low")]
+        [cmdletbinding(ConfirmImpact="None")]
         param(
             [Parameter(Mandatory=$true, HelpMessage="Toggl Request Headers")]
             [hashtable]$togglRequestHeaders,
@@ -191,7 +192,7 @@ function Stop-Day(){
     }
 
     function Get-RemainingDateTime(){
-        [cmdletbinding(ConfirmImpact="Low")]
+        [cmdletbinding(ConfirmImpact="None")]
         param(
             [Parameter(Mandatory=$true, HelpMessage="Toggl Time Entries")]
             [object[]]$timeEntries
