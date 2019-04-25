@@ -160,6 +160,8 @@ function Stop-Tracking(){
 function Start-Day(){
     [cmdletbinding(ConfirmImpact="None")]
     param()
+
+    Main
 }
 
 function Stop-Day(){
@@ -241,15 +243,22 @@ function Stop-Day(){
 
 function Main(){
 
+    [cmdletbinding(ConfirmImpact="None")]
+    param()
+
 $jiraId = Get-JiraId
 $jiraRequestHeaders = Get-JiraRequestHeaders
 $jiraSummary = Get-JiraSummary($jiraId, $jiraRequestHeaders)
+
 $projectId = Get-TogglProjectId
 
-    # $togglRequestHeaders = Get-TogglRequestHeaders
-    # $togglPayload = Get-TogglePayload
-    # $togglCreateResponse = Add-TogglTimeEntry($togglRequestHeaders, $togglPayload)
+    $togglRequestHeaders = Get-TogglRequestHeaders
 
-    # Write-Host $togglCreateResponse
+    $trackingResponse = Start-Tracking `
+        -togglRequestHeaders $togglRequestHeaders `
+        -jiraSummary $jiraSummary `
+        -projectId $projectId
+
+    $trackingResponse | Format-List
 }
 
