@@ -94,7 +94,7 @@ function Start-Tracking(){
                 "pid" = $projectId
                 "created_with" = "powershell"
             }
-        }
+        } | ConvertTo-Json
 
         $response = Invoke-WebRequest -Method 'Post' `
             -uri "https://www.toggl.com/api/v8/time_entries" `
