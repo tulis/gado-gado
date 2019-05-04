@@ -1,4 +1,4 @@
-# Setup task scheduler to run this script
+﻿# Setup task scheduler to run this script
 # https://stackoverflow.com/questions/23953926/how-do-i-execute-a-powershell-script-automatically-using-windows-task-scheduler
 
 $ErrorActionPreference = "Stop"
@@ -90,6 +90,100 @@ function Get-TogglRequestHeaders() {
     }
 
     return $headers
+}
+
+function Get-TogglWeeklySummary(){
+    [cmdletbinding(ConfirmImpact="None")]
+    param(
+        [Parameter(Mandatory=$false, HelpMessage="Any local DateTime within a week")]
+        [DateTime] $anyDateTime = (Get-Date)
+    )
+
+    function Get-TogglWeeklyTimeEntries(){
+        [cmdletbinding(ConfirmImpact="None")]
+        param(
+            [Parameter(Mandatory=$true, HelpMessage="Monday local DateTime")]
+            [DateTime] $monday,
+
+            [Parameter(Mandatory=$true, HelpMessage="Friday local DateTime")]
+            [DateTime] $friday,
+
+            [Parameter(Mandatory=$true, HelpMessage="Toggl Request Headers")]
+            [hashtable]$togglRequestHeaders,
+
+            [Parameter(Mandatory=$true, HelpMessage="Project ID Toggl")]
+            [string] $projectId
+        )
+        end{
+            $mondayEncoded = [System.Web.HttpUtility]::UrlEncode((Get-Date -Day $monday.Day `
+                -Month $monday.Month `
+                -Year $monday.Year `
+                -Hour 00 -Minute 00 -Second 00).ToUniversalTime().ToString("o"))
+
+            $fridayEncoded = [System.Web.HttpUtility]::UrlEncode((Get-Date -Day $friday.Day `
+                -Month $friday.Month `
+                -Year $friday.Year `
+                -Hour 00 -Minute 00 -Second 00).ToUniversalTime().ToString("o"))
+
+            $weeklyEntries = Invoke-WebRequest -Method 'Get' `
+                -uri "https://www.toggl.com/api/v8/time_entries?start_date=$mondayEncoded&end_date=$fridayEncoded" `
+                -Headers $togglRequestHeaders
+
+            Write-Debug $weeklyEntries
+            return $weeklyEntries | ConvertFrom-Json
+        }
+    }
+
+    function Transform(){
+        [cmdletbinding(ConfirmImpact="None")]
+        param(
+            [Parameter(Mandatory=$true, HelpMessage="Weekly Toggl Time Entries")]
+            [object[]]$weeklyEntries
+        )
+        end{
+
+            $summary = $weeklyEntries `
+                | Group-Object -Property description `
+                | %{
+                    $description = $_.Name
+
+                    $_.Group `
+                        | Group-Object {$_.start.ToString("ddd dd MMM")} `
+                        | ForEach-Object -Process {
+                            $durationTimeSpan = New-TimeSpan `
+                                -Seconds (($_.Group `
+                                    | Measure-Object -Property duration -Sum).Sum)
+                            $summaryEntry = @{
+                                "Description" = $description
+                                "Day" = $_.Name
+                                "Duration" = $durationTimeSpan.TotalHours
+                            }
+
+                            return $summaryEntry
+                        }
+
+                    return $summaryEntry
+                }
+
+            return $summary
+        }
+    }
+
+    $monday = $anyDateTime.AddDays(- ($anyDateTime.DayOfWeek - ([System.DayOfWeek]::Monday)))
+    $friday = $anyDateTime.AddDays((([System.DayOfWeek]::Friday) - $anyDateTime.DayOfWeek))
+    Write-Debug "Get weekly entries from $monday to $friday"
+
+    $weeklyEntries = Get-TogglWeeklyTimeEntries `
+        -monday $monday `
+        -friday $friday `
+        -togglRequestHeaders (Get-TogglRequestHeaders) `
+        -projectId (Get-TogglProjectId)
+
+    $summary = Transform -weeklyEntries $weeklyEntries
+
+    $summary | ForEach-Object { [pscustomobject] $_ } `
+        | Format-Table -AutoSize `
+        | Out-String -Width 5000
 }
 
 function Start-Tracking(){
