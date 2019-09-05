@@ -1,4 +1,5 @@
 # Editor
+* Supercharger — https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.Supercharger
 * Spell checker
 * Roslynator
 * Code format
