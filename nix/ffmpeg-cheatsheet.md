@@ -3,6 +3,12 @@
 ffmpeg -i http://eqd591fqsh.eq.webcdn.stream.ne.jp/www50/eqd591fqsh/jmc_pub/jmc_pd/00001/ab05c12dce8a422080c6f2212351a9d5/ab05c12dce8a422080c6f2212351a9d5_9.m3u8 -c copy -bsf:a aac_adtstoasc output.mp4
 ```
 
+## Convert mpd (MPEG-Dash) to mp4
+```
+ffmpeg -i https://manifest.streaks.jp/v1/hulu/5ff99a100681456e8d59facc946658cf/964dcc819f774d0ca33d1b73b193ca81/dash/main/manifest.mpd -c copy output.mp4
+```
+* [How to download and encode a video from a MPD manifest?](https://video.stackexchange.com/questions/24435/how-to-download-and-encode-a-video-from-a-mpd-manifest)
+
 ## Rotate
 ```
 ffmpeg -i output.mp4 -vf "transpose=2" -strict -2 akane-ono-businessmanchampionship2018.mp4
