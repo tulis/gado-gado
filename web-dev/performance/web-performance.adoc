@@ -1,0 +1,10 @@
+* Lighthouse Metrics + 
+Global performance insights, powered by Lighthouse. + 
+https://lighthouse-metrics.com/
+* Fast or Slow +
+https://www.fastorslow.com/
+** Review +
+https://news.ycombinator.com/item?id=23119701
+* Every Web Performance Tools +
+A list of website performance tools +
+https://www.swyx.io/writing/webperf-tests/
