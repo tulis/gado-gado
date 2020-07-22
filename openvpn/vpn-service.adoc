@@ -1,5 +1,5 @@
 * NordVPN -> affordable $$$
 * Mullvad -> Expensive, on the rise, using Wireguard protocol instead of openVPN
-* Setup-hosted
+* Self-hosted
 ** Get any VPS, for example AWS nano EC2, Azure, etc...
 ** Install Wireguard (recommended) or openVPN
