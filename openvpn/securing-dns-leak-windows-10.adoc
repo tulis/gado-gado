@@ -1,0 +1,53 @@
+## Check DNS Leak
+https://mullvad.net/en/check/#/
+
+## Change DNS Server on each LAN Network
+* DNS Server first choice: `1.1.1.1` belongs to Cloudflare
+* DNS Server second choice: `103.86.96.100` belongs to NordVPN.footnote:NordVPN[NordVPN, what are your DNS server addresses? — https://support.nordvpn.com/Other/1047409702/What-are-your-DNS-server-addresses.htm]
+* DNS Server third choice: `103.86.99.100` belongs to NordVPN.footnote:NordVPN[]
+
+### How to change DNS Server
+Do it for all LAN Network Adapter. If you have 3 (because you want to connect more than 1 VPN Server simultanously), then do it for all 3 adapters.
+
+https://www.limevpn.com/four-ways-to-prevent-a-dns-leak-when-using-virtual-private-network/
+
+https://web.archive.org/web/20191222030454/http://www.limevpn.com/four-ways-to-prevent-a-dns-leak-when-using-virtual-private-network/
+
+## Apply `block-outside-dns` on each `.ovpn` configuration file
+* Run Notepad as Administrator
+* Open any `.ovpn` configuration file that you want to connect to, for example `C:\Program Files\OpenVPN\config\au450.nordvpn.com.udp1194.ovpn`
++
+```
+client
+dev tun
+proto udp
+remote 103.212.224.211 1194
+resolv-retry infinite
+remote-random
+nobind
+tun-mtu 1500
+tun-mtu-extra 32
+mssfix 1450
+persist-key
+persist-tun
+ping 15
+ping-restart 0
+ping-timer-rem
+reneg-sec 0
+comp-lzo no
+block-outside-dns <!--1-->
+
+remote-cert-tls server
+
+auth-user-pass
+verb 3
+pull
+fast-io
+cipher AES-256-CBC
+auth SHA512
+
+...
+```
+(1) Apply `block-outside-dns` to prevent Windows 10 on choosing DNS Server with the quickest response. In this case the DNS Server that is belong to ISP.footnote:[WARNING! Windows 10 VPN Users at Big Risk of DNS Leak — https://proprivacy.com/privacy-news/warning-windows-10-vpn-users-big-risk-dns-leak]
+* Save the changes (`Ctrl+s`)
+* Disconnect then reconnect
