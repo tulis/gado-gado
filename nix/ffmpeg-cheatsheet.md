@@ -10,6 +10,7 @@ ffmpeg -i http://eqd591fqsh.eq.webcdn.stream.ne.jp/www50/eqd591fqsh/jmc_pub/jmc_
 * `-ss 00:00:15.00` indicates discard all input up until `15` seconds
 * `-t 00:00:10.00` indicates capture duration for 10 seconds
 * [How to download portion of video with youtube-dl command?](https://unix.stackexchange.com/questions/230481/how-to-download-portion-of-video-with-youtube-dl-command)
+* For youtube, combine `youtube-dl` to get `.m3u8` and https://ytcutter.com/ to get duration
 
 ## Convert mpd (MPEG-Dash) to mp4
 ```
