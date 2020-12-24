@@ -3,6 +3,14 @@
 ffmpeg -i http://eqd591fqsh.eq.webcdn.stream.ne.jp/www50/eqd591fqsh/jmc_pub/jmc_pd/00001/ab05c12dce8a422080c6f2212351a9d5/ab05c12dce8a422080c6f2212351a9d5_9.m3u8 -c copy -bsf:a aac_adtstoasc output.mp4
 ```
 
+## Convert m3u8 to mp4 for specified time range
+```
+ffmpeg -i http://eqd591fqsh.eq.webcdn.stream.ne.jp/www50/eqd591fqsh/jmc_pub/jmc_pd/00001/ab05c12dce8a422080c6f2212351a9d5/ab05c12dce8a422080c6f2212351a9d5_9.m3u8 -ss 00:00:15.00 -t 00:00:10.00 -c copy -bsf:a aac_adtstoasc output.mp4
+```
+* `-ss 00:00:15.00` indicates discard all input up until `15` seconds
+* `-t 00:00:10.00` indicates capture duration for 10 seconds
+* [How to download portion of video with youtube-dl command?](https://unix.stackexchange.com/questions/230481/how-to-download-portion-of-video-with-youtube-dl-command)
+
 ## Convert mpd (MPEG-Dash) to mp4
 ```
 ffmpeg -i https://manifest.streaks.jp/v1/hulu/5ff99a100681456e8d59facc946658cf/964dcc819f774d0ca33d1b73b193ca81/dash/main/manifest.mpd -c copy output.mp4
