@@ -8,7 +8,7 @@
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
 
-    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
 
     // You can add more global application settings here.
     // To learn more about global settings, visit https://aka.ms/terminal-global-settings
@@ -33,6 +33,27 @@
         [
             {
                 "acrylicOpacity": 0.5,
+                "backgroundImage": "C:/Users/mon_m/OneDrive/Doraemon/Wallpapers/dm2017wp1_pc.jpg",
+                "backgroundImageOpacity": 0.10000000596046448,
+                "backgroundImageStretchMode": "uniformToFill",
+                "closeOnExit": true,
+                "colorScheme": "One Half Dark",
+                "commandline": "wsl.exe -d Ubuntu",
+                "cursorColor": "#FFFFFF",
+                "cursorShape": "bar",
+                "fontFace": "InconsolataLGC Nerd Font",
+                "fontSize": 13,
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+                "name": "Ubuntu",
+                "padding": "0, 0, 0, 0",
+                "snapOnInput": true,
+                "tabColor": "#90EE90",
+                "useAcrylic": false
+            },
+            {
+                "acrylicOpacity": 0.5,
                 "backgroundImage": "C:/Users/mon_m/OneDrive/Doraemon/Wallpapers/PC_wallpaper_201903.png",
                 "backgroundImageOpacity": 0.30000001192092896,
                 "backgroundImageStretchMode": "uniformToFill",
@@ -50,6 +71,7 @@
                 "padding": "0, 0, 0, 0",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%",
+                "tabColor": "#ADD8E6",
                 "useAcrylic": false
             },
             {
@@ -72,6 +94,7 @@
                 "padding": "0, 0, 0, 0",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%",
+                "tabColor": "#B19CD9",
                 "useAcrylic": false
             },
             {
@@ -93,26 +116,7 @@
                 "padding": "0, 0, 0, 0",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%",
-                "useAcrylic": false
-            },
-            {
-                "acrylicOpacity": 0.5,
-                "backgroundImage": "C:/Users/mon_m/OneDrive/Doraemon/Wallpapers/dm2017wp1_pc.jpg",
-                "backgroundImageOpacity": 0.40000000596046448,
-                "backgroundImageStretchMode": "uniformToFill",
-                "closeOnExit": true,
-                "colorScheme": "One Half Dark",
-                "commandline": "wsl.exe -d Ubuntu",
-                "cursorColor": "#FFFFFF",
-                "cursorShape": "bar",
-                "fontFace": "InconsolataLGC Nerd Font",
-                "fontSize": 13,
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "historySize": 9001,
-                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "Ubuntu",
-                "padding": "0, 0, 0, 0",
-                "snapOnInput": true,
+                "tabColor": "#fed8b1",
                 "useAcrylic": false
             },
             {
@@ -135,13 +139,15 @@
                 "padding": "0, 0, 0, 0",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%",
+                "tabColor": "#E0FFFF",
                 "useAcrylic": false
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
                 "hidden": false,
                 "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure"
+                "source": "Windows.Terminal.Azure",
+                "tabColor": "#FE2E2E"
             },
             {
                 "acrylicOpacity": 0.85,
@@ -162,6 +168,7 @@
                 "padding": "0, 0, 0, 0",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%",
+                "tabColor": "#E0FFFF",
                 "useAcrylic": false
             }
         ]
@@ -282,19 +289,58 @@
     // To learn more about keybindings, visit https://aka.ms/terminal-keybindings
     "keybindings":
     [
+        { "command": "closeTab", "keys": "ctrl+w" },
+        { "command": "newTab", "keys": "ctrl+t" },
+
         // Copy and paste are bound to Ctrl+Shift+C and Ctrl+Shift+V in your defaults.json.
         // These two lines additionally bind them to Ctrl+C and Ctrl+V.
         // To learn more about selection, visit https://aka.ms/terminal-selection
         { "command": {"action": "copy", "singleLine": false }, "keys": "ctrl+c" },
-        { "command": "paste", "keys": "ctrl+v" },
+        { "command": { "action": "copy", "singleLine": true }, "keys": "ctrl+alt+c" },
+        //{ "command": "paste", "keys": "ctrl+v" },
 
         // Press Ctrl+Shift+F to open the search box
         { "command": "find", "keys": "ctrl+shift+f" },
+
+        // Navigating to a specific tab
+        // https://devblogs.microsoft.com/commandline/windows-terminal-preview-v0-11-release/
+        { "command": { "action": "switchToTab", "index": 0 }, "keys": "ctrl+alt+0" },
+        { "command": { "action": "switchToTab", "index": 1 }, "keys": "ctrl+alt+1" },
+        { "command": { "action": "switchToTab", "index": 2 }, "keys": "ctrl+alt+2" },
+        { "command": { "action": "switchToTab", "index": 3 }, "keys": "ctrl+alt+3" },
+        { "command": { "action": "switchToTab", "index": 4 }, "keys": "ctrl+alt+4" },
+        { "command": { "action": "switchToTab", "index": 5 }, "keys": "ctrl+alt+5" },
+        { "command": { "action": "switchToTab", "index": 6 }, "keys": "ctrl+alt+6" },
+        { "command": { "action": "switchToTab", "index": 7 }, "keys": "ctrl+alt+7" },
+        { "command": { "action": "switchToTab", "index": 8 }, "keys": "ctrl+alt+8" },
+        { "command": { "action": "switchToTab", "index": 9 }, "keys": "ctrl+alt+9" },
 
         // Press Alt+Shift+D to open a new pane.
         // - "split": "auto" makes this pane open in the direction that provides the most surface area.
         // - "splitMode": "duplicate" makes the new pane use the focused pane's profile.
         // To learn more about panes, visit https://aka.ms/terminal-panes
-        { "command": { "action": "splitPane", "split": "auto", "splitMode": "duplicate" }, "keys": "alt+shift+d" }
+        // https://devblogs.microsoft.com/commandline/windows-terminal-preview-v0-11-release/
+        { "command": { "action": "splitPane", "split": "auto", "splitMode": "duplicate" }, "keys": "alt+shift+d" },
+        { "command": { "action": "splitPane", "split": "horizontal"}, "keys": "alt+shift+-" },
+        { "command": { "action": "splitPane", "split": "vertical"}, "keys": "alt+shift+plus" },
+
+        // Focusing between panes
+        // https://devblogs.microsoft.com/commandline/windows-terminal-preview-v0-11-release/
+        { "command": { "action": "moveFocus", "direction": "down" }, "keys": "alt+down" },
+        { "command": { "action": "moveFocus", "direction": "up" }, "keys": "alt+up" },
+        { "command": { "action": "moveFocus", "direction": "left" }, "keys": "alt+left" },
+        { "command": { "action": "moveFocus", "direction": "right" }, "keys": "alt+right" },
+
+        // Resizing pane
+        // https://devblogs.microsoft.com/commandline/windows-terminal-preview-v0-11-release/
+        { "command": { "action": "resizePane", "direction": "down" }, "keys": "alt+shift+down" },
+        { "command": { "action": "resizePane", "direction": "up" }, "keys": "alt+shift+up" },
+        { "command": { "action": "resizePane", "direction": "left" }, "keys": "alt+shift+left" },
+        { "command": { "action": "resizePane", "direction": "right" }, "keys": "alt+shift+right" },
+
+        // Modify font size
+        // https://devblogs.microsoft.com/commandline/windows-terminal-preview-v0-11-release/
+        { "command": { "action": "adjustFontSize", "delta": -1 }, "keys": "ctrl+-" },
+        { "command": { "action": "adjustFontSize", "delta": 1 }, "keys": "ctrl+=" }
     ]
 }
